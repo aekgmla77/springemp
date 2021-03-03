@@ -1,6 +1,7 @@
 package com.yedam.emp.service.impl;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class EmpSpringDAO {
 												+ "PHONE_NUMBER,"
 												+ "HIRE_DATE,"
 												+ "JOB_ID,"
-												+ "DEPARTMENT_ID)"
-												+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+												+ "DEPARTMENT_ID,"
+												+ "MANAGER_ID)"
+												+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String UPDATE_EMP = "UPDATE EMPLOYEES SET "
 												+ "FIRST_NAME = ?,"
 												+ "LAST_NAME = ?,"
@@ -31,7 +33,8 @@ public class EmpSpringDAO {
 												+ "PHONE_NUMBER= ?,"
 												+ "HIRE_DATE= ?,"
 												+ "JOB_ID = ?,"
-												+ "DEPARTMENT_ID= ? "
+												+ "DEPARTMENT_ID = ?,"
+												+ "MANAGER_ID = ? "
 												+ "WHERE EMPLOYEE_ID = ?";
 	private final String DELETE_EMP = "DELETE FROM EMPLOYEES WHERE EMPLOYEE_ID = ?";
 	private final String GET_EMP = "SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID = ?";
@@ -40,7 +43,7 @@ public class EmpSpringDAO {
 	public int insertEmp(EmpVO vo) {
 		int result = 0;
 		result = template.update(INSERT_EMP, vo.getEmployee_id(), vo.getFirst_name(), vo.getLast_name(), vo.getEmail()
-								, vo.getPhone_number(), vo.getHire_date(), vo.getJob_id(), vo.getDepartment_id());
+								, vo.getPhone_number(), vo.getHire_date(), vo.getJob_id(), vo.getDepartment_id(), vo.getManager_id());
 		return result;
 	}
 	
@@ -48,7 +51,7 @@ public class EmpSpringDAO {
 	public int updateEmp(EmpVO vo) {
 		int result = 0;
 		result = template.update(UPDATE_EMP, vo.getFirst_name(), vo.getLast_name(), vo.getEmail(), vo.getPhone_number()
-								, vo.getHire_date(), vo.getJob_id(), vo.getDepartment_id(), vo.getEmployee_id());
+								, vo.getHire_date(), vo.getJob_id(), vo.getDepartment_id(), vo.getManager_id(), vo.getEmployee_id());
 		return result;
 	}
 	

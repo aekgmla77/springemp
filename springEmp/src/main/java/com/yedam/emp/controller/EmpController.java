@@ -27,21 +27,31 @@ public class EmpController {
 	
 	@PostMapping("/insertEmp") //등록 처리
 	public String insertEmpProc(EmpVO vo) {
+		empservice.insertEmp(vo);
+		return "redirect:/getSearchEmp"; 
+	}
+	
+	@RequestMapping("/deleteEmp") //삭제 처리
+	public String deleteEmp(EmpVO vo) {
+		empservice.deleteEmp(vo);
 		return "redirect:/getSearchEmp"; 
 	}
 	
 	@GetMapping("/updateEmp")  //수정 페이지
-	public String updateEmp(EmpVO vo) {
+	public String updateEmp(EmpVO vo, Model model) {  //모든 파라미터는 vo에 자동으로 들어옴
+		model.addAttribute("empVO", empservice.getEmp(vo) );
 		return "/emp/updateEmp"; 
 	}
 	
 	@PostMapping("/updateEmp") //수정 처리
 	public String updateEmpProc(EmpVO vo) {
+		empservice.updateEmp(vo);
 		return "redirect:/getSearchEmp"; 
 	}
 	
 	@GetMapping("/getEmp") //단 건 조회
-	public String getEmp(EmpVO vo) {
+	public String getEmp(EmpVO vo, Model model) {
+		model.addAttribute("emp", empservice.getEmp(vo) );
 		return "/emp/getEmp"; 
 	}
 	

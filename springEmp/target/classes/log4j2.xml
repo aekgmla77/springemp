@@ -22,7 +22,7 @@
         <Logger name="egovframework" level="INFO" additivity="false">
             <AppenderRef ref="console_com" />
         </Logger>
-        <Logger name="com" level="INFO" additivity="false">
+        <Logger name="com.yedam" level="debug" additivity="false">
             <AppenderRef ref="console_com" />
         </Logger>
         <Logger name="org.springframework" level="debug" additivity="false">

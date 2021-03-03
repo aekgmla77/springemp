@@ -10,32 +10,28 @@ import com.yedam.emp.service.EmpService;
 @Service
 public class EmpServiceImpl implements EmpService{
 
-	@Autowired EmpSpringDAO empDAO;
+//	@Autowired EmpSpringDAO empDAO;
+//	@Autowired EmpMybatisDAO empDAO;
+	@Autowired EmpMapper empDAO;
 	
 	@Override
 	public int insertEmp(EmpVO vo) {
-		int n = 0;
-		n = empDAO.insertEmp(vo);
-		return n;
+		return empDAO.insertEmp(vo);
 	}
 
 	@Override
 	public int updateEmp(EmpVO vo) {
-		int n = 0;
-		n = empDAO.updateEmp(vo);
-		return n;
+		return empDAO.updateEmp(vo);
 	}
 
 	@Override
 	public int deleteEmp(EmpVO vo) {
-		int n = 0;
-		n = empDAO.deleteEmp(vo);
-		return n;
+		return empDAO.deleteEmp(vo);
 	}
 
 	@Override
 	public EmpVO getEmp(EmpVO vo) {
-		return null;
+		return empDAO.getEmp(vo);
 	}
 
 	@Override

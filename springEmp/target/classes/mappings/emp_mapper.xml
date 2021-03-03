@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.emp.service.impl.EmpMapper">  <!-- 구분하는 이름 -->
+	<select id="getSearchEmp" parameterType="emp" resultType="emp">
+	 	SELECT e.employee_id, 
+	 		   e.first_name, 
+	 		   e.last_name, 
+	 		   e.phone_number, 
+	 		   e.hire_date, 
+	 		   e.manager_id, 
+	 		   e.email, 
+	 		   e.department_id, 
+	 		   d.department_name, 
+	 		   j.job_title
+		FROM   EMPLOYEES e, departments d, jobs j
+	    where  e.department_id = d.department_id
+	    and    e.job_id = j.job_id
+<!-- 	 <where> -->
+<!-- 	 	<if test="department_id != null and department_id != ''"> 부서번호가 null이 아니면 if절 추가  -->
+<!-- 	 		DEPARTMENT_ID = #{department_id} -->
+<!-- 	 	</if> -->
+<!-- 	 	<if test="job_id != null and job_id != ''"> -->
+<!-- 	 		AND JOB_ID = #{job_id} -->
+<!-- 	 	</if> -->
+<!-- 	 	<if test="first_name != null and first_name != ''"> -->
+<!-- 		    AND UPPER(FIRST_NAME) LIKE '%' || UPPER(#{first_name}) ||'%' -->
+<!-- 	    </if> -->
+<!-- 	 </where> -->
+	 ORDER BY EMPLOYEE_ID
+	</select>
+	<insert id="insertEmp" parameterType="emp">
+	INSERT INTO EMPLOYEES 
+				(EMPLOYEE_ID,
+				FIRST_NAME,
+				LAST_NAME,
+				EMAIL,
+				PHONE_NUMBER,
+				HIRE_DATE,
+				JOB_ID,
+				DEPARTMENT_ID
+				<if test="manager_id != null">, MANAGER_ID</if>
+				)
+		VALUES(#{employee_id}, 
+				#{first_name}, 
+				#{last_name}, 
+				#{email}, 
+				#{phone_number}, 
+				#{hire_date}, 
+				#{job_id}, 
+				#{department_id} 
+				<if test="manager_id != null">, #{manager_id}</if>
+				)
+	</insert>
+	<update id="updateEmp">
+		UPDATE EMPLOYEES 
+				<set>
+				<if test="first_name != null">FIRST_NAME = #{first_name},         </if>
+				<if test="last_name != null">LAST_NAME = #{last_name},			  </if>
+				<if test="email != null">EMAIL= #{email},						  </if>
+				<if test="phone_number != null">PHONE_NUMBER= #{phone_number},	  </if>
+				<if test="hire_date != null">HIRE_DATE= #{hire_date},			  </if>
+				<if test="job_id != null">JOB_ID = #{job_id},					  </if>
+				<if test="department_id != null">DEPARTMENT_ID = #{department_id},</if>
+				<if test="manager_id != null">MANAGER_ID = #{manager_id} 		  </if>
+				</set>
+				WHERE EMPLOYEE_ID = #{employee_id}
+	</update>
+	<delete id="deleteEmp">
+		DELETE FROM 
+		EMPLOYEES 
+		WHERE EMPLOYEE_ID = #{employee_id}
+	</delete>
+	<select id="getEmp" resultType="emp">
+		SELECT * 
+		FROM EMPLOYEES 
+		WHERE EMPLOYEE_ID = #{employee_id}
+	</select>
+
+</mapper>

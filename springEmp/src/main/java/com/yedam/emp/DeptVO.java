@@ -16,4 +16,7 @@ public class DeptVO {
 	private String location_id;
 	private String city;
 	private String last_name;
+	private Integer page = 1;
+	private int start = 1;
+	private int end = 10;
 }

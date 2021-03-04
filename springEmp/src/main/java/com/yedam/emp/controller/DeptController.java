@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.emp.DeptVO;
+import com.yedam.emp.common.Paging;
 import com.yedam.emp.service.DeptService;
 
 @Controller
@@ -51,7 +52,17 @@ public class DeptController {
 	}
 	
 	@GetMapping("/getSearchDept") //검색 조회
-	public String getSearchDept(DeptVO vo, Model model) {
+	public String getSearchDept(DeptVO vo, Paging paging, Model model) {
+		paging.setPageUnit(5);  //한 페이지 표시되는 레코드 건수
+		paging.setPageSize(3);  //페이지 번호
+		//paging
+		if(vo.getPage() == null) {
+			vo.setPage(1);
+		}
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+		paging.setTotalRecord(deptservice.getDcount(vo));
+		model.addAttribute("paging", paging);
 		model.addAttribute("list", deptservice.getSearchDept(vo));
 		return "/dept/getSearchDept"; 
 	}

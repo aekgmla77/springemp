@@ -2,21 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.yedam.emp.service.impl.DeptMapper">
- 	<select id="getSearchDept" resultType="dept">
-	 	SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME, D.LOCATION_ID, D.MANAGER_ID, L.CITY, E.LAST_NAME
-		FROM DEPARTMENTS D RIGHT OUTER JOIN LOCATIONS L
-		ON D.LOCATION_ID = L.LOCATION_ID
-		INNER JOIN EMPLOYEES E
-		ON D.MANAGER_ID = E.EMPLOYEE_ID 
-	 	<where>
+ 
+ 	<select id="getDcount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM DEPARTMENTS
+ 		<where>
+	 		<if test="department_id != null and department_id != ''">
+	 			DEPARTMENT_ID = #{department_id}
+	 		</if>
 	 		<if test="manager_id != null and manager_id != ''">
-	 			MANAGER_ID = #{manager_id}
+	 			AND MANAGER_ID = #{manager_id}
 	 		</if>
 	 		<if test="department_name != null and department_name != ''">
-	 			AND DEPARTMENT_NAME = #{department_name}
+	 			AND UPPER(DEPARTMENT_NAME) LIKE '%'|| UPPER(#{department_name}) || '%'
+	 		</if>
+	 	</where>
+ 	</select>
+ 
+ 	<select id="getSearchDept" parameterType="DeptVO" resultType="dept">
+ 	SELECT B.* FROM(SELECT ROWNUM RN, A.*   FROM(
+	 	SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME, D.LOCATION_ID, D.MANAGER_ID, L.CITY, E.LAST_NAME
+		FROM   DEPARTMENTS D RIGHT OUTER JOIN LOCATIONS L
+		ON     D.LOCATION_ID = L.LOCATION_ID
+		INNER  JOIN EMPLOYEES E
+		ON     D.MANAGER_ID = E.EMPLOYEE_ID 
+	 	<where>
+	 		<if test="department_id != null and department_id != ''">
+	 			D.DEPARTMENT_ID = #{department_id}
+	 		</if>
+	 		<if test="manager_id != null and manager_id != ''">
+	 			AND D.MANAGER_ID = #{manager_id}
+	 		</if>
+	 		<if test="department_name != null and department_name != ''">
+	 			AND UPPER(D.DEPARTMENT_NAME) LIKE '%' || UPPER(#{department_name}) || '%'
 	 		</if>
 	 	</where>
 	 	ORDER BY DEPARTMENT_ID
+	 	) A   ) B  WHERE RN BETWEEN #{start} AND #{end}
  	</select>
  	<insert id="insertDept" parameterType="dept">
 	 	INSERT INTO DEPARTMENTS(DEPARTMENT_ID,

@@ -3,6 +3,7 @@ package com.yedam.emp.service.impl;
 import java.util.List;
 
 import com.yedam.emp.DeptVO;
+import com.yedam.emp.EmpSearchVO;
 
 public interface DeptMapper {
 	//등록
@@ -15,4 +16,6 @@ public interface DeptMapper {
 	public DeptVO getDept(DeptVO vo);
 	//전체/검색 조회
 	public List<DeptVO> getSearchDept(DeptVO vo);
+	//건수 
+	public int getDcount(DeptVO vo);
 }

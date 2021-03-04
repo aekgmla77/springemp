@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.yedam.emp.service.EmpService;
 import com.yedam.emp.service.impl.EmpMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,6 +20,7 @@ import com.yedam.emp.service.impl.EmpMapper;
 public class EmpMapperClient {
 	
 	@Autowired EmpMapper empMapper;
+	@Autowired EmpService empService;
 	
 	//@Test
 	public void getEmp() {
@@ -32,7 +34,7 @@ public class EmpMapperClient {
 	
 	//@Test
 	public void getSearchEmp() {
-		EmpVO vo = EmpVO.builder().first_name("na").build();
+		EmpSearchVO vo = (EmpSearchVO) EmpSearchVO.builder().first_name("na").build();
 		List<EmpVO> list = empMapper.getSearchEmp(vo);
 		System.out.println(list);
 	}
@@ -42,22 +44,22 @@ public class EmpMapperClient {
 		EmpVO vo = EmpVO.builder()
 						.first_name("fe")
 						.last_name("tsef")
-						.email("sevdcf")
+						.email("f@esc.cvcdm")
 						.hire_date(new java.sql.Date(new Date(0).getTime()))
 						.job_id("IT_PROG")
 						.department_id("50")
-						.employee_id("668")
+						.employee_id("899")
 						.phone_number("010.2258.3334")
 						.build();
-		int result = empMapper.insertEmp(vo);
+		int result = empService.insertEmp(vo);
 		assertEquals(result, 1);
 	}
 	
 	//@Test
 	public void updateEmp() {
 		EmpVO vo = EmpVO.builder()
-						.email("sixss")
-						.employee_id("666")
+						.email("sixdsss")
+						.employee_id("645")
 						.build();
 		int result = empMapper.updateEmp(vo);
 		assertEquals(result, 1);

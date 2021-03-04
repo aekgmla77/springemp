@@ -4,9 +4,24 @@
 <html>
 <head><title>order/insertOrder.jsp</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#btnUp").on("click", function(){
+			var tr = $("tr:last").clone().appendTo($("tbody"));
+			var num = 2;
+			for(i = 2; i < i+1; i++){
+				if(i < i +1) {
+					num = num +i;
+				tr.find("input").eq(0).attr("name","ords["+num+"].no");
+				tr.find("input").eq(1).attr("name","ords["+num+"].cnt");
+				}
+			}
+		})
+	})
+</script>
 </head>
 <body>
-<button type="button">상품 추가</button>
+<button type="button" id="btnUp">상품 추가</button>
 <form action="insertOrder" method="post">
 $("tr:last").clone().appendTo($("tbody"));
 	<table border="1">

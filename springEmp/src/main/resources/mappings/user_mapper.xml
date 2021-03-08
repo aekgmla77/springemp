@@ -24,11 +24,13 @@
  				 #{role})			 
  	</insert>
  	<update id="updateUsers" parameterType="UsersVO">
- 		UPDATE USERS
- 		   SET PASSWORD = #{password},
- 		   	   NAME = #{name},
- 		   	   ROLE = #{role}
- 		 WHERE   ID = #{id}  
+ 		update users
+ 		<set>
+ 		<if test="password != null and password !=''">password = #{password}</if>
+ 		<if test="name != null and name !=''">,name = #{name}</if>
+ 		<if test="role != null and role !=''">,role = #{role}</if>
+ 		</set>
+ 		where id = #{id}
  	</update>
  	
  	<delete id="deleteUsers" parameterType="UsersVO">
@@ -55,4 +57,6 @@
  		  FROM USERS
  		 WHERE ID = #{id}
  	</select>
+ 	
+ 	
  </mapper>

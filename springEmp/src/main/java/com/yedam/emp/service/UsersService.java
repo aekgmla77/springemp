@@ -15,4 +15,8 @@ public interface UsersService {
 	public UsersVO getUsers(UsersVO vo);
 	//전체
 	public List<UsersVO> getSearchUsers(UsersVO vo);
+	//로그인
+	public boolean loginCheck(UsersVO vo);
+	//password 변경
+	public int updatePw(UsersVO vo);
 }

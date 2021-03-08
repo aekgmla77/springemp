@@ -1,8 +1,13 @@
 package com.yedam.emp.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yedam.emp.DeptVO;
 import com.yedam.emp.EmpSearchVO;
 import com.yedam.emp.EmpVO;
+import com.yedam.emp.EmpValidation;
 import com.yedam.emp.JobVO;
 import com.yedam.emp.common.Paging;
 import com.yedam.emp.service.DeptService;
@@ -39,9 +45,18 @@ public class EmpController {
 	}
 	
 	@PostMapping("/insertEmp") //등록 처리
-	public String insertEmpProc(EmpVO vo) {
-		empservice.insertEmp(vo);
-		return "redirect:/getSearchEmp"; 
+	public String insertEmpProc(@Valid EmpVO vo, BindingResult errors, DeptVO deptVO, Model model, JobVO jobvo) {
+		//입력값 검증
+//		EmpValidation empValidation = new EmpValidation();
+//		empValidation.validate(vo, errors);
+		if(errors.hasErrors()) {
+			model.addAttribute("deptList", deptservice.getSearchDept(deptVO));
+			model.addAttribute("jobList", jobservice.getSearchJob(jobvo));
+			return "/emp/insertEmp";   //등록 페이지로
+		} else {
+			empservice.insertEmp(vo);
+			return "redirect:/getSearchEmp"; 
+		}
 	}
 	
 	@RequestMapping("/deleteEmp") //삭제 처리

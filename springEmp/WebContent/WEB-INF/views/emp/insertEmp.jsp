@@ -38,30 +38,42 @@ function EmpSerch(){
 			"width=600, height=200, left=100")
 }
 </script>
+<style>
+.error {color : red;}
+</style>
 </head>
 <body>
 <h3 id="top">사원등록</h3>
 
 <form:form modelAttribute="empVO" action="insertEmp" method="post" name="frm">
-	employee_id <form:input type="number" path="employee_id" /><br>
-	first_name  <form:input path="first_name" /><br>
-	last_name   <form:input path="last_name" /><br>
+	employee_id <form:input path="employee_id" />
+					<form:errors path="employee_id" cssClass="error" /><br>
+	first_name  <form:input path="first_name" />
+					<form:errors path="first_name" cssClass="error" /><br>
+	last_name   <form:input path="last_name" />
+					<form:errors path="last_name" cssClass="error" /><br>
 	email       <form:input type="text" path="email" />
+					<form:errors path="email" cssClass="error" />
 				<button type="button" id="btnEmail">중복 체크</button>
 				<span id="emailResult"></span><br>
-	phone_number<form:input type="text" path="phone_number" /><br>
-	hire_date   <form:input type="date" path="hire_date" /><br>
+	phone_number<form:input type="text" path="phone_number" />
+					<form:errors path="phone_number" cssClass="error" /><br>
+	hire_date   <form:input type="date" path="hire_date" />
+					<form:errors path="hire_date" cssClass="error" /><br>
 	job_id  
 				<form:select path="job_id">  
 				   <option value="">선택</option>
 				   <form:options items="${jobList}" itemLabel="job_title" itemValue="job_id"/>
-				</form:select><br>
+				</form:select> 
+				   <form:errors path="job_id" cssClass="error" /><br>
 	department_id 
 				<form:radiobuttons items="${deptList }" itemLabel="department_name" itemValue="department_id" path="department_id" />
+					<form:errors path="department_id" cssClass="error" />
 				<br>
 	manager_id 
 	<form:input path="manager_id"/>
 	<input type="text" name="mname">
+		<form:errors path="manager_id" cssClass="error" />	
 	<button type="button" onclick="EmpSerch()">사원검색</button><br>	
 	<button type="submit">등록</button>
 	<button type="reset">초기화</button>

@@ -9,4 +9,6 @@ public class UsersVO {
 	private String name;
 	private String role;
 	private String[] ids;
+	private String oldpassword;
+	private String newpass;
 }

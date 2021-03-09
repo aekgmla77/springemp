@@ -2,6 +2,7 @@ package com.yedam.emp.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,20 +25,19 @@ public class LoginController {
 	
 	//패스워드 변경처리
 	@PostMapping("/changePw")
-	public String changePwProc(UsersVO vo, BindingResult errors, HttpSession session) {
+	public String changePwProc(@Valid UsersVO vo, BindingResult errors, HttpSession session) {
 		//validation 일치여부 확인
 		new ChangePwdCommandValidator().validate(vo, errors);
-		if(vo.getPassword().equals(vo.getNewpass())) {
+		if(errors.hasErrors()) {
 			return "user/changePw";
-		}
-		else if(errors.hasErrors()) {
-			return "user/changePw";
-		}
+		} else {
+			vo.getPassword().equals(vo.getNewpass());
 		//패스워드 변경 서비스
 		String id = (String) session.getAttribute("loginid");
 		vo.setId(id);
 		userservice.updatePw(vo);
 		return "user/changePw";
+		}
 	}
 	
 	//login page

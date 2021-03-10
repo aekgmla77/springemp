@@ -29,6 +29,8 @@ div {
 	<button type="submit">로그인</button>
 	<button type="reset">취소</button>
 </form>
+<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a4ebdf8d627fdcb7cf96c8c39951aebf&redirect_uri=http://localhost/temp/callback">카카오 로그인</a>
+
 </div>
 </body>
 </html>

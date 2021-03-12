@@ -12,8 +12,10 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.gson.Gson;
@@ -139,6 +141,14 @@ public class BankAPI {
 			return str;
 		}
 		
+		public String getRend2() {
+			long time = System.currentTimeMillis();
+			String str = Long.toString(time);
+			String str2 = Long.toString(time);
+			String str3 = Long.toString(time);
+			return str + str2 +str3.substring(str3.length()-6);
+		}
+		
 		public String getRand() {
 			long time = System.currentTimeMillis();
 			String str = Long.toString(time);
@@ -164,7 +174,7 @@ public class BankAPI {
 		        // 출력되는 값이 200이면 정상작동
 		        int responseCode = conn.getResponseCode();
 		        System.out.println("responseCode : " + responseCode);
-		        
+		        System.out.println(getRend2());
 		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		        
 		        String line = "";
@@ -238,4 +248,21 @@ public class BankAPI {
 	        
 	        return map;
 	    }
+		
+		public Map<String, Object> getOrgAccessTokenRestTemplate () {
+			String reqURL = host + "/oauth/2.0/token";
+	        Map<String, Object> map = null;
+	        
+	        StringBuilder sb = new StringBuilder();
+            sb.append("client_id=").append(client_id);
+            sb.append("&client_secret=").append(client_secret);
+            sb.append("&scope=oob");
+            sb.append("&grant_type=client_credentials");
+            
+            RestTemplate restTemplate = new RestTemplate();
+            
+	        return map;
+			
+			
+		}
 }

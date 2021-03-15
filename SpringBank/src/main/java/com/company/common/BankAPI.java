@@ -1,20 +1,22 @@
 package com.company.common;
 
 import java.io.BufferedReader;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -249,20 +251,23 @@ public class BankAPI {
 	        return map;
 	    }
 		
-		public Map<String, Object> getOrgAccessTokenRestTemplate () {
-			String reqURL = host + "/oauth/2.0/token";
-	        Map<String, Object> map = null;
+		public Map<String, Object> getOrgAccessTokenRestTemplate() {
+			String reqURL = host + "/oauth/2.0/token";   
+			
+	        MultiValueMap<String, String> param = new LinkedMultiValueMap<String, String>();
+	        param.add("client_id", client_id);
+	        param.add("client_secret", client_secret);
+	        param.add("scope", "oob");
+	        param.add("grant_type", "client_credentials");
+
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.set("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+	        HttpEntity<MultiValueMap<String, String>> request = 
+	        		new HttpEntity<MultiValueMap<String, String>>( param, headers);
 	        
-	        StringBuilder sb = new StringBuilder();
-            sb.append("client_id=").append(client_id);
-            sb.append("&client_secret=").append(client_secret);
-            sb.append("&scope=oob");
-            sb.append("&grant_type=client_credentials");
-            
-            RestTemplate restTemplate = new RestTemplate();
-            
+	        RestTemplate restTemplate = new RestTemplate();
+	        Map map = restTemplate.postForObject(reqURL, request, Map.class);
 	        return map;
-			
-			
 		}
 }

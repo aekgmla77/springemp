@@ -29,5 +29,16 @@
  								#{company},
  								#{manager_id})						   
  	</insert>
+ 	<select id="getProduct" resultType="ProductVO" parameterType="ProductVO">
+ 		SELECT PRODUCT_ID,
+ 			   PRODUCT_NAME,
+ 			   PRODUCT_PRICE,
+ 			   PRODUCT_INFO ,
+ 			   PRODUCT_DATE ,
+ 			   COMPANY,
+ 			   MANAGER_ID
+ 		FROM   PRODUCT_TBL_10	
+ 		WHERE  PRODUCT_ID = #{product_id}
+ 	</select>
  
  </mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.company.temp.sales.service.impl.SalesMapper">
+
+ <insert id="insertSale">
+ 	INSERT INTO SALE_TBL_10(
+ 							SALE_SEQ, 
+ 							SALE_DATE, 
+ 							PRODUCT_ID, 
+ 							SALE_QTY, 
+ 							SALE_PRICE,
+ 							MEMBER_ID)
+	VALUES					(#{sale_seq}, 
+							#{sale_date}, 
+							#{product_id}, 
+							#{sale_qty}, 
+							#{sale_price}, 
+							#{member_id})
+ </insert>
+ 	
+ </mapper>

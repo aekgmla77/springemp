@@ -22,4 +22,9 @@ public class ProductServiceImpl implements ProductService{
 		return dao.insertProduct(vo);
 	}
 
+	@Override
+	public ProductVO getProduct(ProductVO vo) {
+		return dao.getProduct(vo);
+	}
+
 }

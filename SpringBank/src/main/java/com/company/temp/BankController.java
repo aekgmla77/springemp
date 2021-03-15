@@ -90,7 +90,7 @@ public class BankController {
 	
 	@RequestMapping("/getOrgAuthorize")
 	public String getOrgAuthorize() {
-		Map<String, Object> map = bankAPI.getOrgAccessToken();
+		Map<String, Object> map = bankAPI.getOrgAccessTokenRestTemplate();
 		System.out.println("access_token" + map.get(access_token));
 		return "home";
 	}

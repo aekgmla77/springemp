@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.company.common.TestVO;
+import com.company.temp.service.TestVO;
 
 @Controller
 public class TestController {

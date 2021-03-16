@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.company.common.BankAPI;
-import com.company.common.BankVO;
+import com.company.temp.service.BankVO;
 
 @Controller
 public class BankController {

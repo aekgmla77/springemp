@@ -9,4 +9,11 @@
 			   email 	  "email"
 	    from   employees 
 	</select>
+	<!-- 일별 판매합계 -->
+	<select id="getSumList" resultType="map">
+		select to_char(sale_date, 'yy-mm-dd') as 날짜, sum(sale_price * sale_qty) as 일별합계
+		from sale_tbl_10
+		group by sale_date
+		order by sale_date
+	</select>
  </mapper>

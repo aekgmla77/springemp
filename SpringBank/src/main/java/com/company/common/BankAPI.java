@@ -19,6 +19,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.company.temp.service.BankVO;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.gson.Gson;
 @Service

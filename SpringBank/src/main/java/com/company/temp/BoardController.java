@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.company.common.BoardVO;
+import com.company.temp.service.BoardVO;
 
 @Controller
 // view > string, 나머지 > @ResponseBody
